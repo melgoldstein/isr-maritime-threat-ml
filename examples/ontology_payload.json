@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "objectType": "MaritimeVesselObject",
+  "objects": [
+    {
+      "vesselId": "S7-42-0045",
+      "mmsi": "900000045",
+      "lastObserved": "2026-01-01T00:00:00+00:00",
+      "latitude": 35.17523158889851,
+      "longitude": 23.935103222838887,
+      "threatScore": 1.0,
+      "reasonCodes": [
+        "STATISTICAL_NOVELTY"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "actionType": "IsrThreatAlertAction",
+      "parameters": {
+        "alertId": "d47f3814-cf59-51f7-9d03-4872df3a7e63",
+        "vesselId": "S7-42-0045",
+        "observedAt": "2026-01-01T00:00:00+00:00",
+        "threatScore": 1.0,
+        "reasonCodes": [
+          "STATISTICAL_NOVELTY"
+        ],
+        "status": "PENDING_REVIEW"
+      }
+    }
+  ]
+}

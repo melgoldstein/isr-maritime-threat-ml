@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you reference this software, cite the repository and the commit used."
+title: "Maritime ISR: Multi-sensor anomaly detection and Ontology-driven triage"
+type: software
+authors:
+  - family-names: Altintas
+    given-names: Can
+repository-code: "https://github.com/cankaan120/isr-maritime-threat-ml"
+abstract: >-
+  A synthetic maritime anomaly-detection study comparing deterministic rules,
+  IsolationForest, and calibrated hybrid evidence with Foundry Ontology staging contracts.
