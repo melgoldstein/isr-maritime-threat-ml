@@ -17,9 +17,17 @@ serialization contracts, and a documented boundary between local inference and F
 This is a synthetic research prototype, not a deployed surveillance system or an
 official Palantir product.
 
+**Version 0.2 adds a runnable service:** frozen model bundles, authenticated inference,
+transactional replay, analyst review history, and a non-root Docker deployment.
+Every scored observation includes its feature evidence. Run the pipeline, serve the bundle,
+and exercise the flow through the generated OpenAPI interface.
+
 [Results](reports/BENCHMARK.md) · [Model card](docs/MODEL_CARD.md) ·
 [Engineering](docs/ENGINEERING.md) · [Foundry integration](docs/FOUNDRY.md) ·
 [Review guide](docs/REVIEW_GUIDE.md)
+
+[Run the service](docs/SERVING.md) · [Stress evaluation](reports/stress/STRESS.md) ·
+[Version 0.2 changes](docs/RELEASE_0_2.md)
 
 ## Architecture
 
@@ -31,6 +39,10 @@ flowchart LR
     C --> D[Held-Out Calibration]
     R --> D
     D --> E[JSON / Parquet Staging]
+    D --> M[Frozen Model Bundle]
+    M --> S[Authenticated Inference API]
+    S --> L[Transactional Alert Ledger]
+    L --> J[Analyst Review / Audit History]
     subgraph Foundry deployment boundary
         E -. configured adapter .-> F[Palantir Foundry Ontology]
         F --> G[AIP Action Trigger]
@@ -59,6 +71,16 @@ intervals. Full dispersion, confusion counts, and calibration bins are in
 [the benchmark report](reports/BENCHMARK.md). The simulator's injected events align with
 the rules, making this a controlled engineering experiment. These results do not establish
 field performance or a probability of hostile intent.
+
+### Frozen-model challenges
+
+The same detector is tested on unseen scenario constructions without refitting:
+AIS outages, degraded radar, benign RCS changes, legitimate fishing without AIS, and
+gradual position drift. The [stress report](reports/stress/STRESS.md) records false-alert
+episodes per vessel-hour, event recall and detection delay at three thresholds.
+At the default threshold, gradual drift has a **46-minute median detection delay**;
+degraded radar produces **11.019 false episodes per benign vessel-hour**. These failures
+are retained as measurable deployment limitations.
 
 ## Reproduce
 
@@ -101,6 +123,10 @@ For the recorded Python 3.12 environment, install `requirements-lock.txt` follow
 | [Detector](src/models/isolation_detector.py) | Reference-percentile scoring, deterministic evidence, separate calibration |
 | [Ontology mapper](src/palantir/ontology_mapper.py) | Typed envelopes, explicit Arrow schema, stable event identity |
 | [Evaluation](src/evaluate.py) | Independently calibrated ablations, cohort isolation, reproducible figures |
+| [Model artifacts](src/models/artifact.py) | Frozen estimator, content identity and runtime compatibility |
+| [Inference service](src/service/api.py) | Validated requests, authentication and observation-level evidence |
+| [Alert ledger](src/service/store.py) | Atomic replay, concurrent deduplication and review history |
+| [Stress suite](src/stress.py) | Frozen-model failures, alert burden and event-level latency |
 | [Tests](tests) | Geometry, time gaps, label exclusion, replay, empty exports and benchmark accounting |
 
 ## Output contract
@@ -135,7 +161,7 @@ and the [generated sample](examples/ontology_payload.json).
 - Scenario labels supervise calibration only; the IsolationForest fit remains unsupervised.
 - Correlated observations within a vessel are not independent statistical samples.
 - A real deployment needs field labels, sensor-health handling, drift monitoring, persistent
-  model artifacts, deployment-specific permissions, and reviewed action execution.
+  infrastructure, deployment-specific permissions, and reviewed external action execution.
 
 The [model card](docs/MODEL_CARD.md) explains the evaluation protocol and failure modes.
 The [contribution guide](CONTRIBUTING.md) defines local checks and review expectations.

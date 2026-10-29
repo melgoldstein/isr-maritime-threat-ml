@@ -51,6 +51,7 @@ sensor-health gates, model persistence, drift monitoring and calibrated field la
 | `artifacts/ontology_payload.json` | Versioned object snapshots and proposed action parameters |
 | `artifacts/metrics.json` | Precision, recall, average precision, Brier score and scenario recall |
 | `artifacts/run_manifest.json` | Seeds, dependency versions, CSV SHA-256, feature order and calibration knots |
+| `artifacts/models/<model_id>/` | Serialized frozen detector and verified runtime/source contract |
 
 The flagged snapshot is the last flagged observation, which may precede the latest
 observation. It is not a current fleet-state table. Alert IDs are deterministic UUIDs

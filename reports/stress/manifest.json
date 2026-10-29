@@ -1,0 +1,36 @@
+{
+  "model_id": "6f6ccffe38c29e67a5ca2ae311e9c662364dfc763c5e74de0bb25bb9e1f04e2f",
+  "model_runtime": {
+    "schema_version": 1,
+    "python": "3.12",
+    "features": [
+      "implied_speed_knots",
+      "sog_delta_knots",
+      "turn_rate_deg_min",
+      "sensor_separation_m",
+      "rcs_residual_db",
+      "dark_minutes",
+      "loitering_flag"
+    ],
+    "dependencies": {
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "joblib": "1.6.0"
+    },
+    "source_sha256": {
+      "features/kinematics.py": "2554900fd4548d11cdf816ab9aedf33ca4a0fb7a07e9c5c31cf30da928b58f48",
+      "models/isolation_detector.py": "cc80a04e9e687a40e755eec14281542a38ff988670b28fdc7c5bb129aedfd4de",
+      "ingest/ais_simulator.py": "b336013555bb5ba3308df86d8b76523a4c7275a1c0a0a3d70d64b0a9922433de"
+    }
+  },
+  "challenge_seed": 9042,
+  "thresholds": [
+    0.3,
+    0.65,
+    0.9
+  ],
+  "protocol": "Frozen model; no fitting, recalibration or threshold selection",
+  "exposure": "One minute per observation; false alerts count contiguous episodes"
+}

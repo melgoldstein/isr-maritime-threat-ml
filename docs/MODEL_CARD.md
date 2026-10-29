@@ -75,4 +75,15 @@ features during gaps; that is not a complete missing-sensor strategy.
 Random states, installed versions, cohort seeds and calibration knots are recorded.
 Exact outputs may change with dependency versions. The frozen requirements record the
 local Python 3.12 environment; CI also exercises the declared ranges on Python 3.11.
-Models are fitted per run and are not persisted for independent inference services.
+Pipeline runs persist a model bundle for independent inference. The service loads a frozen
+bundle and rejects runtime/source mismatches. See [the serving guide](SERVING.md).
+
+## Frozen-model challenge suite
+
+Version 0.2 adds seed-9042 scenario constructions withheld from fitting and calibration.
+The detector is loaded from a saved bundle and is never updated during the experiment.
+The suite measures false-alert episodes per benign vessel-hour, affected-contact event
+recall and median detection delay, with thresholds 0.3, 0.65 and 0.9 reported together.
+Results and precise assumptions appear in [the stress report](../reports/stress/STRESS.md).
+Fishing deliberately uses the same observations as anomalous loitering with a benign
+interpretation; no classifier can resolve that ambiguity from these features alone.

@@ -19,10 +19,15 @@
     "ingest/__init__.py": "998d76280d448a0585bb340f12c2c1649239ebd8ca026696294827a17ad72877",
     "ingest/ais_simulator.py": "b336013555bb5ba3308df86d8b76523a4c7275a1c0a0a3d70d64b0a9922433de",
     "models/__init__.py": "04a15d7d2f303aae564239f9549635b14fadaea50b9887ed2a5556ae4ef8d917",
+    "models/artifact.py": "728b48e93a2b2fc9dfcbd545761da6e9d76f74ae20f9f943268c980942261026",
     "models/isolation_detector.py": "cc80a04e9e687a40e755eec14281542a38ff988670b28fdc7c5bb129aedfd4de",
     "palantir/__init__.py": "91e87e6c471c3e94e2988ff0fddd03104033d1dac832314b82450192e218d27d",
-    "palantir/ontology_mapper.py": "48e5cc8e59f31156bb02f7285d3cf5666fa54c5a2beba3f50bb0513fe575a53a",
-    "pipeline.py": "dffd31398316e930f071e3056f32c6fea5bcae1e35846c76d8e4993b14608239"
+    "palantir/ontology_mapper.py": "739cd3026f3b606d6a38e6d1f3e5927ca1098715257b8293f24ff72557a65d19",
+    "pipeline.py": "c02ad79a9122f9baaae49389686f43f979967aa95e1c8c03934b5f9a35b9cb7e",
+    "service/__init__.py": "ba5416a34115d04fd1ee973248d5536c105a625a138fe1c97e06070aa9b46062",
+    "service/api.py": "e8f380b62b6a22d28dfb1ba7d948031debce1a7469ea17ee96fe26988fc2ae9c",
+    "service/store.py": "9beaf25cb329e817bd405e6ee32469069f2055acf5e0f78813ced121899c9d6e",
+    "stress.py": "b41b57748576fb0f29c2d01a74af80c943473e66d62bdb28641f0e57e914399b"
   },
   "uncertainty": "sample standard deviation across seeds; not a CI",
   "dependencies": {
