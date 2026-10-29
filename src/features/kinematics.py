@@ -65,6 +65,13 @@ def engineer_features(ais_track_df: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("Radar observations must be complete")
     if not tracks["vessel_class"].isin(EXPECTED_RCS_DB).all():
         raise ValueError("Unsupported vessel class")
+    for column in ["sog_knots", "cog_deg", "radar_rcs_dbsm"]:
+        if not np.isfinite(tracks[column].dropna()).all():
+            raise ValueError(f"Non-finite sensor measurement: {column}")
+    if (tracks["sog_knots"].dropna() < 0).any():
+        raise ValueError("Reported speed must be nonnegative")
+    if not tracks["cog_deg"].dropna().between(0, 360, inclusive="left").all():
+        raise ValueError("Reported course must be in [0, 360)")
     tracks = tracks.sort_values(["track_id", "timestamp"]).reset_index(drop=True)
     enriched_tracks: list[pd.DataFrame] = []
     for _, contact in tracks.groupby("track_id", sort=False):

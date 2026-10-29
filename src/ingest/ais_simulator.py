@@ -1,6 +1,7 @@
 """Generate fused radar tracks with nullable AIS observations and scenario truth."""
 
 import logging
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -43,8 +44,8 @@ def simulate_tracks(seed: int = 42, vessels: int = 48, observations: int = 90) -
             track_rows.append(
                 {
                     "track_id": f"S7-{seed}-{vessel_index:04d}",
-                    "timestamp": pd.Timestamp("2026-01-01T00:00:00Z")
-                    + pd.Timedelta(minutes=observation_index),
+                    "timestamp": datetime(2026, 1, 1, tzinfo=timezone.utc)
+                    + timedelta(minutes=observation_index),
                     "mmsi": None if dark_contact else str(900000000 + vessel_index),
                     "vessel_class": vessel_class,
                     "radar_latitude": radar_latitude,
