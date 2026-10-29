@@ -1,6 +1,7 @@
 import json
 import socket
 import threading
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -189,7 +190,18 @@ def test_operational_metrics_count_episodes_and_misses() -> None:
     assert operational_metrics(scored)["median_detection_delay_minutes"] is None
 
 
-def test_live_http_smoke(bundle: Path, tmp_path: Path) -> None:
+def test_live_http_smoke(bundle: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    original_urlopen = urllib.request.urlopen
+    attempts = 0
+
+    def transient_reset(*arguments: object, **options: object) -> object:
+        nonlocal attempts
+        attempts += 1
+        if attempts == 1:
+            raise ConnectionResetError("Container socket is not ready")
+        return original_urlopen(*arguments, **options)
+
+    monkeypatch.setattr(urllib.request, "urlopen", transient_reset)
     application = create_app(bundle, tmp_path / "live.sqlite3", API_KEY)
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))

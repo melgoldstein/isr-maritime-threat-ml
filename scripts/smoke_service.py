@@ -20,7 +20,7 @@ def smoke_service(base_url: str, api_key: str) -> None:
             with urllib.request.urlopen(f"{base_url}/health", timeout=2) as response:
                 assert json.load(response)["status"] == "ready"
             break
-        except (urllib.error.URLError, TimeoutError):
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
             if attempt == 29:
                 raise
             time.sleep(1)
