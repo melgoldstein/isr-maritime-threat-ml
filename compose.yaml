@@ -1,0 +1,18 @@
+services:
+  inference:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      ISR_API_KEY: ${ISR_API_KEY:?Set ISR_API_KEY to a random secret of at least 24 characters}
+    volumes:
+      - alert-ledger:/var/lib/isr
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  alert-ledger:

@@ -47,8 +47,7 @@ VESSEL_SCHEMA = pa.schema(
 )
 
 
-def export_ontology(scored_tracks: pd.DataFrame, destination: Path) -> dict[str, object]:
-    destination.mkdir(parents=True, exist_ok=True)
+def build_ontology_payload(scored_tracks: pd.DataFrame) -> dict[str, object]:
     vessels: list[MaritimeVesselObject] = []
     actions: list[IsrThreatAlertAction] = []
     flagged = scored_tracks.loc[scored_tracks["flagged"]].sort_values("timestamp")
@@ -87,11 +86,18 @@ def export_ontology(scored_tracks: pd.DataFrame, destination: Path) -> dict[str,
         "objects": vessels,
         "actions": actions,
     }
+    return ontology_payload
+
+
+def export_ontology(scored_tracks: pd.DataFrame, destination: Path) -> dict[str, object]:
+    destination.mkdir(parents=True, exist_ok=True)
+    ontology_payload = build_ontology_payload(scored_tracks)
     (destination / "ontology_payload.json").write_text(
         json.dumps(ontology_payload, indent=2, allow_nan=False) + "\n", encoding="utf-8"
     )
     parquet_records = [
-        dict(vessel, lastObserved=pd.Timestamp(vessel["lastObserved"])) for vessel in vessels
+        dict(vessel, lastObserved=pd.Timestamp(vessel["lastObserved"]))
+        for vessel in ontology_payload["objects"]
     ]
     pq.write_table(
         pa.Table.from_pylist(parquet_records, schema=VESSEL_SCHEMA),

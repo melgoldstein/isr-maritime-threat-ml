@@ -12,6 +12,7 @@ from sklearn.metrics import average_precision_score, brier_score_loss, precision
 
 from src.features.kinematics import FEATURE_COLUMNS, engineer_features
 from src.ingest.ais_simulator import simulate_tracks, write_tracks
+from src.models.artifact import save_model
 from src.models.isolation_detector import IsolationThreatDetector
 from src.palantir.ontology_mapper import export_ontology
 
@@ -27,6 +28,7 @@ def run_pipeline(
     evaluation = engineer_features(write_tracks(tracks_path, seed))
     detector = IsolationThreatDetector(seed)
     detector.fit(reference, calibration)
+    bundle = save_model(detector, output / "models")
     scored_tracks = detector.score(evaluation, threshold)
     scored_tracks.to_parquet(output / "scored_tracks.parquet", index=False)
     ontology_payload = export_ontology(scored_tracks, output)
@@ -47,7 +49,9 @@ def run_pipeline(
     }
     manifest = {
         "schema_version": "1.0.0",
-        "model_version": "0.1.0",
+        "model_version": version("isr-maritime-threat-ml"),
+        "model_id": bundle.name,
+        "model_bundle": str(bundle.resolve()),
         "seed": seed,
         "reference_seed": seed + 1,
         "calibration_seed": seed + 2,
