@@ -10,3 +10,6 @@ __pycache__/
 artifacts/
 build/
 dist/
+.coverage
+coverage.xml
+htmlcov/

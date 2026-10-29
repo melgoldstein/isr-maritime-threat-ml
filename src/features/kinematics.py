@@ -92,9 +92,14 @@ def engineer_features(ais_track_df: pd.DataFrame) -> pd.DataFrame:
         contact["sog_delta_knots"] = (
             ais_distance / (elapsed_minutes * 60) / 0.514444 - contact["sog_knots"]
         ).abs()
-        north_delta = contact["radar_latitude"].diff()
-        east_delta = contact["radar_longitude"].diff() * np.cos(np.radians(latitude))
-        radar_course = np.degrees(np.arctan2(east_delta, north_delta)) % 360
+        previous_phi = np.radians(contact["radar_latitude"].shift())
+        current_phi = np.radians(contact["radar_latitude"])
+        delta_lambda = np.radians(contact["radar_longitude"].diff())
+        east_component = np.sin(delta_lambda) * np.cos(current_phi)
+        north_component = np.cos(previous_phi) * np.sin(current_phi) - (
+            np.sin(previous_phi) * np.cos(current_phi) * np.cos(delta_lambda)
+        )
+        radar_course = np.degrees(np.arctan2(east_component, north_component)) % 360
         contact["turn_rate_deg_min"] = (
             (radar_course.diff() + 180) % 360 - 180
         ).abs() / elapsed_minutes
@@ -109,13 +114,18 @@ def engineer_features(ais_track_df: pd.DataFrame) -> pd.DataFrame:
         ).abs()
         contact["rcs_mismatch_flag"] = contact["rcs_residual_db"] > 10
         ais_missing = contact[["mmsi", "ais_latitude", "ais_longitude"]].isna().any(axis=1)
-        dark_segments = (~ais_missing).cumsum()
+        continuous_observation = elapsed_minutes.le(2)
+        dark_segments = (~ais_missing | ~continuous_observation).cumsum()
         contact["dark_minutes"] = (
-            elapsed_minutes.fillna(0).where(ais_missing, 0).groupby(dark_segments).cumsum()
+            elapsed_minutes.fillna(0)
+            .where(ais_missing & continuous_observation, 0)
+            .groupby(dark_segments)
+            .cumsum()
         )
         contact["loitering_flag"] = (
             contact["implied_speed_knots"].rolling(10, min_periods=10).mean().lt(3)
             & contact["turn_rate_deg_min"].rolling(10, min_periods=10).mean().gt(8)
+            & continuous_observation.rolling(10, min_periods=10).sum().eq(10)
         ).astype(float)
         contact["history_ready"] = elapsed_minutes.notna()
         contact[FEATURE_COLUMNS] = contact[FEATURE_COLUMNS].fillna(0)
