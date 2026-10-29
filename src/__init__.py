@@ -1,0 +1,1 @@
+"""Maritime ISR reference pipeline."""
