@@ -35,8 +35,8 @@ Illustrative JSON excerpt; numerical values depend on the run:
     "vesselId": "S7-42-0001",
     "mmsi": null,
     "lastObserved": "2026-01-01T01:29:00+00:00",
-    "latitude": 35.1,
-    "longitude": 24.2,
+    "latitude": 28.4,
+    "longitude": -80.5,
     "threatScore": 0.99,
     "reasonCodes": ["DARK_LOITERING"]
   }],
@@ -53,4 +53,3 @@ Illustrative JSON excerpt; numerical values depend on the run:
   }]
 }
 ```
-

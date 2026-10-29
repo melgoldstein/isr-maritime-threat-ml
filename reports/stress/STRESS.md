@@ -5,8 +5,8 @@ Model is fixed before challenge generation. No test-time recalibration.
 | Scenario | False episodes / benign vessel-hour | Event recall | Median delay (min) |
 | --- | ---: | ---: | ---: |
 | normal_transit | 0.056 | n/a | n/a |
-| ais_outage_during_transit | 0.389 | n/a | n/a |
-| degraded_radar | 11.019 | n/a | n/a |
+| ais_outage_during_transit | 0.463 | n/a | n/a |
+| degraded_radar | 12.370 | n/a | n/a |
 | benign_rcs_aspect_change | 4.111 | n/a | n/a |
 | legitimate_fishing_without_ais | 0.667 | n/a | n/a |
 | gradual_position_drift | 0.167 | 1.000 | 46.0 |

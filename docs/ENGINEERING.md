@@ -57,4 +57,3 @@ The flagged snapshot is the last flagged observation, which may precede the late
 observation. It is not a current fleet-state table. Alert IDs are deterministic UUIDs
 derived from schema version, contact and observation time. A Foundry receiver must
 enforce idempotency; producing the same ID does not itself prevent repeated actions.
-

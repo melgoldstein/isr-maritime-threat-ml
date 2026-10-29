@@ -21,8 +21,8 @@ def simulate_tracks(seed: int = 42, vessels: int = 48, observations: int = 90) -
         scenario = ("spoofing", "dark_loitering", "rcs_mismatch", "benign")[
             vessel_index % 12 if vessel_index % 12 < 3 else 3
         ]
-        latitude = 35.0 + generator.uniform(-0.4, 0.4)
-        longitude = 24.0 + generator.uniform(-0.4, 0.4)
+        latitude = 28.4 + generator.uniform(-0.15, 0.15)
+        longitude = -80.5 + generator.uniform(-0.08, 0.08)
         course = generator.uniform(0, 360)
         cruise_speed = generator.uniform(8, 18)
         for observation_index in range(observations):

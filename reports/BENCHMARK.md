@@ -6,8 +6,8 @@ Mean +/- sample standard deviation across seeds. Threshold: 0.65.
 | Method | Precision | Recall | Average precision | Brier score |
 | --- | ---: | ---: | ---: | ---: |
 | rules | 1.0000 +/- 0.0000 | 0.9500 +/- 0.0000 | 0.9583 +/- 0.0000 | 0.0083 +/- 0.0000 |
-| isolation | 0.9179 +/- 0.0254 | 0.9981 +/- 0.0036 | 0.9599 +/- 0.0105 | 0.0133 +/- 0.0043 |
-| hybrid | 0.9989 +/- 0.0018 | 0.9981 +/- 0.0021 | 0.9987 +/- 0.0023 | 0.0005 +/- 0.0004 |
+| isolation | 0.9190 +/- 0.0131 | 0.9967 +/- 0.0067 | 0.9625 +/- 0.0094 | 0.0131 +/- 0.0021 |
+| hybrid | 0.9992 +/- 0.0019 | 0.9981 +/- 0.0021 | 0.9987 +/- 0.0023 | 0.0005 +/- 0.0004 |
 
 All methods receive an independently fitted isotonic calibrator.
 The rules-only comparison is essential: the generator injects events that match

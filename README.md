@@ -5,7 +5,9 @@
 [![Pipeline quality](https://github.com/cankaan120/isr-maritime-threat-ml/actions/workflows/quality.yml/badge.svg)](https://github.com/cankaan120/isr-maritime-threat-ml/actions/workflows/quality.yml)
 
 A reproducible Python engineering study of maritime track anomalies: fuse simulated
-AIS and radar observations, derive causal kinematic evidence, calibrate anomaly scores,
+AIS and radar observations off Port Canaveral, Florida (reference 28.4158 N, 80.6048 W).
+The simulation covers a synthetic offshore sector around 28.4 N, 80.5 W. Derive causal
+kinematic evidence, calibrate anomaly scores,
 and produce typed records for a Palantir Foundry triage workflow.
 
 **Research question:** can an unsupervised detector recover events missed by explicit
@@ -14,8 +16,7 @@ rules without inheriting the detector's false-positive rate?
 The implementation compares rules, IsolationForest, and a calibrated hybrid on independent
 synthetic cohorts. It includes executable tests, recorded benchmark results, explicit
 serialization contracts, and a documented boundary between local inference and Foundry.
-This is a synthetic research prototype, not a deployed surveillance system or an
-official Palantir product.
+The repository includes local inference, reproducible evaluation and Foundry integration contracts.
 
 **Version 0.2 adds a runnable service:** frozen model bundles, authenticated inference,
 transactional replay, analyst review history, and a non-root Docker deployment.
@@ -61,8 +62,8 @@ The alert threshold is fixed at 0.65 before evaluation.
 | Method | Precision | Recall | Brier score |
 | :--- | ---: | ---: | ---: |
 | Rules only | 1.0000 | 0.9500 | 0.0083 |
-| IsolationForest only | 0.9179 | 0.9981 | 0.0133 |
-| Hybrid | **0.9989** | **0.9981** | **0.0005** |
+| IsolationForest only | 0.9190 | 0.9967 | 0.0131 |
+| Hybrid | **0.9992** | **0.9981** | **0.0005** |
 
 ![Synthetic benchmark: recall and Brier score across five seeds](reports/benchmark.png)
 
@@ -79,7 +80,7 @@ AIS outages, degraded radar, benign RCS changes, legitimate fishing without AIS,
 gradual position drift. The [stress report](reports/stress/STRESS.md) records false-alert
 episodes per vessel-hour, event recall and detection delay at three thresholds.
 At the default threshold, gradual drift has a **46-minute median detection delay**;
-degraded radar produces **11.019 false episodes per benign vessel-hour**. These failures
+degraded radar produces **12.370 false episodes per benign vessel-hour**. These failures
 are retained as measurable deployment limitations.
 
 ## Reproduce
@@ -143,8 +144,8 @@ An exported vessel object has this shape; values below are illustrative:
   "vesselId": "S7-42-0001",
   "mmsi": null,
   "lastObserved": "2026-01-01T01:29:00+00:00",
-  "latitude": 35.1,
-  "longitude": 24.2,
+  "latitude": 28.4,
+  "longitude": -80.5,
   "threatScore": 0.99,
   "reasonCodes": ["DARK_LOITERING"]
 }

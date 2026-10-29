@@ -1,5 +1,5 @@
 {
-  "model_id": "6f6ccffe38c29e67a5ca2ae311e9c662364dfc763c5e74de0bb25bb9e1f04e2f",
+  "model_id": "586ca102b9b5c2022510137da78140fcfec65eb3adf67cfcb815e56ea2218ba3",
   "model_runtime": {
     "schema_version": 1,
     "python": "3.12",
@@ -22,7 +22,7 @@
     "source_sha256": {
       "features/kinematics.py": "2554900fd4548d11cdf816ab9aedf33ca4a0fb7a07e9c5c31cf30da928b58f48",
       "models/isolation_detector.py": "cc80a04e9e687a40e755eec14281542a38ff988670b28fdc7c5bb129aedfd4de",
-      "ingest/ais_simulator.py": "b336013555bb5ba3308df86d8b76523a4c7275a1c0a0a3d70d64b0a9922433de"
+      "ingest/ais_simulator.py": "3c19914c92c426eac84a3d4d2a675d5d21a342ea08e1d3f8d63b62b66ffb0095"
     }
   },
   "challenge_seed": 9042,

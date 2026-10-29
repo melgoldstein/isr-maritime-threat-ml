@@ -6,8 +6,8 @@
       "vesselId": "S7-42-0045",
       "mmsi": "900000045",
       "lastObserved": "2026-01-01T00:00:00+00:00",
-      "latitude": 35.17523158889851,
-      "longitude": 23.935103222838887,
+      "latitude": 28.46809344416851,
+      "longitude": -80.51127121349866,
       "threatScore": 1.0,
       "reasonCodes": [
         "STATISTICAL_NOVELTY"
