@@ -1,8 +1,10 @@
 # Maritime ISR
 
+[Portfolio: melgoldstein.com](https://melgoldstein.com/)
+
 ### Multi-sensor anomaly detection and Ontology-driven triage
 
-[![Pipeline quality](https://github.com/cankaan120/isr-maritime-threat-ml/actions/workflows/quality.yml/badge.svg)](https://github.com/cankaan120/isr-maritime-threat-ml/actions/workflows/quality.yml)
+[![Pipeline quality](https://github.com/melgoldstein/isr-maritime-threat-ml/actions/workflows/quality.yml/badge.svg)](https://github.com/melgoldstein/isr-maritime-threat-ml/actions/workflows/quality.yml)
 
 A reproducible Python engineering study of maritime track anomalies: fuse simulated
 AIS and radar observations off Port Canaveral, Florida (reference 28.4158 N, 80.6048 W).
@@ -88,7 +90,7 @@ are retained as measurable deployment limitations.
 Python 3.11 or 3.12. Run from the repository root.
 
 ```bash
-git clone https://github.com/cankaan120/isr-maritime-threat-ml.git
+git clone https://github.com/melgoldstein/isr-maritime-threat-ml.git
 cd isr-maritime-threat-ml
 python3.11 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
@@ -100,7 +102,7 @@ python3.11 -m venv .venv
 Windows PowerShell:
 
 ```powershell
-git clone https://github.com/cankaan120/isr-maritime-threat-ml.git
+git clone https://github.com/melgoldstein/isr-maritime-threat-ml.git
 cd isr-maritime-threat-ml
 py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt

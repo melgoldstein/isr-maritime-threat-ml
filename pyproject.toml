@@ -15,8 +15,8 @@ dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "ruff>=0.11,<1", "build>=1,<2", "mat
 service = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "httpx>=0.28,<1"]
 
 [project.urls]
-Repository = "https://github.com/cankaan120/isr-maritime-threat-ml"
-Issues = "https://github.com/cankaan120/isr-maritime-threat-ml/issues"
+Repository = "https://github.com/melgoldstein/isr-maritime-threat-ml"
+Issues = "https://github.com/melgoldstein/isr-maritime-threat-ml/issues"
 
 [project.scripts]
 isr-maritime = "src.pipeline:main"
